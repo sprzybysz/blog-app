@@ -1,0 +1,14 @@
+<form class="w-50 position-absolute top-50 start-50 translate-middle" [formGroup]="loginForm">
+    <div class="class="input-group has-validation>
+        <div class="mb-3">
+            <label class="form-label">User Name</label>
+            <input class="form-control" aria-describedby="userName" formControlName="userName">
+        </div>
+        <div class="invalid-feedback">
+            Please choose a username.
+          </div>
+    </div>
+    <button type="button" class="btn btn-primary justify-content-end"
+    (click)="handleLogin()"
+    >Log In</button>
+</form>

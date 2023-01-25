@@ -1,0 +1,39 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col" class="w-25">User</th>
+        <th scope="col" class="w-75">Post</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of tableRows$ | async">
+        <td>
+          <p>{{row.userName}}</p>
+          <a class="link-primary" [routerLink]="['/company']" [state]="row.userCompany" *ngIf="row.isUserAuthenticated; else simpleCompanyTitle">{{row.userCompany && row.userCompany.name}}</a>
+          <ng-template #simpleCompanyTitle><p>{{row?.userCompany?.name}}</p></ng-template>
+        </td>
+        <td>
+          <a class="fw-bold text-dark" [routerLink]="['/post/new-post']" [state]="row" *ngIf="row.isUserAuthenticated; else simplePostTitle">{{row.postTitle}}</a>
+          <ng-template #simplePostTitle><p class="fw-bold">{{row.postTitle}}</p></ng-template>
+          <p>{{row.postContent}}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="pagination">
+    <ul class="pagination">
+      <li [ngClass]="isPreviousDisabled ? 'page-item disabled' : 'page-item'">
+        <span class="page-link"
+        (click)="goToPrevious()"
+        >Previous</span>
+      </li>
+      <li *ngFor="let link of paginationIndexes"
+      [ngClass]="link == counter ? 'page-item active' : 'page-item cursor-pointer'"
+      ><a class="page-link" (click)="goToPage(link)">{{link}}</a></li>
+      <li [ngClass]="isNextDisabled ? 'page-item disabled' : 'page-item cursor-pointer'">
+        <span class="page-link" 
+        (click)="goToNext()"
+        >Next</span>
+      </li>
+    </ul>
+  </nav>

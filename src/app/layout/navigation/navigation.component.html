@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-lg bg-secondary mb-4">
+  <div class="container">
+    <div class="w-25">
+      <a class="navbar-brand text-white" href="/">BlogApp</a>
+    </div>
+    <div class="w-50">
+      <p *ngIf="(isAuthenticated$ | async)" class="text-white">Welcome {{(user$ | async)?.name}}</p>
+    </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav d-flex justify-content-end">
+        <a *ngIf="!(isAuthenticated$ | async)" class="nav-link text-white" [routerLink]="['/login']">Log In</a>
+        <a *ngIf="isAuthenticated$ | async" class="nav-link text-white" [routerLink]="['/post/new-post']"
+          [state]="routerPayload">New Post</a>
+        <a *ngIf="isAuthenticated$ | async" class="nav-link text-white" [routerLink]="['/home']"
+          (click)="handleLogout()">Log Out</a>
+      </div>
+    </div>
+  </div>
+</nav>
