@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LogInComponent },
-  { path: 'company', component: CompanyComponent },
+  { path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
   {
     path: 'post',
     loadChildren: async () => (await import("./post/post.module")).PostModule,
