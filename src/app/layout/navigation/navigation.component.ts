@@ -25,10 +25,11 @@ export class NavigationComponent extends SafeUnsubscribe implements OnInit {
   user$: BehaviorSubject<User> = new BehaviorSubject<User>({} as User);
 
   ngOnInit(): void {
+    this.user$.next(JSON.parse(sessionStorage.getItem('user') as string) as User);
+    
     if (this.authService.isUserLoggedIn()) {
       this.prepareDataForRouter();
     }
-    this.user$.next(JSON.parse(sessionStorage.getItem('user') as string) as User);
   }
 
   handleLogout(): void {
