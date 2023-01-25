@@ -12,8 +12,8 @@ import { TableRow } from 'src/app/models/tableRow';
 })
 export class NewPostComponent implements OnInit {
   addPostForm: FormGroup = new FormGroup({
-    title: new FormControl('', Validators.minLength(200)),
-    message: new FormControl('', Validators.minLength(2000)),
+    title: new FormControl('', Validators.maxLength(200)),
+    message: new FormControl('', Validators.maxLength(2000)),
   });
 
   routePayload = {} as TableRow;

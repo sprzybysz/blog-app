@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HomeComService } from '../services/home-com.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -10,6 +10,9 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./log-in.component.css']
 })
 export class LogInComponent implements OnInit {
+
+  isValidUser: boolean = true;
+  isEmpty: boolean = false;
   
   constructor(
     private authService: AuthService,
@@ -17,7 +20,7 @@ export class LogInComponent implements OnInit {
   ) { }
 
   loginForm: FormGroup = new FormGroup({
-    userName: new FormControl('', Validators.required)
+    userName: new FormControl('', [Validators.required, ])
   });
 
   ngOnInit(): void {
@@ -31,7 +34,8 @@ export class LogInComponent implements OnInit {
     if(this.authService.isUserLoggedIn()) {
       this.router.navigate(['/home'])
     } else {
-      
+      this.isEmpty = this.loginForm.controls['userName'].hasError('required');
+      this.isValidUser = false;
     }
   }
 }
